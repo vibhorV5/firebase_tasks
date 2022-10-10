@@ -18,6 +18,7 @@ class _LogInScreenState extends State<LogInScreen> {
     super.dispose();
     Get.find<LoginController>().registerEmail.value = '';
     Get.find<LoginController>().registerPassword.value = '';
+    Get.find<LoginController>().phoneNumber.value = '';
   }
 
   @override
@@ -72,143 +73,138 @@ class _LogInScreenState extends State<LogInScreen> {
               ),
 
               //OTP Signin
-              Form(
-                key: Get.find<LoginController>().phoneFormKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  children: [
-                    Text(
-                      'Phone Verification !',
-                      style: kTextStyleButtons.copyWith(
-                          fontSize: 20, color: Colors.blueAccent),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      onSaved: (newValue) {
-                        // Get.find<LoginController>().loginEmail = newValue!;
-                        Get.find<LoginController>().phoneNumber.value =
-                            newValue!;
-                      },
-                      validator: (value) {
-                        return Get.find<LoginController>()
-                            .phoneNumberValidate(value!);
-                      },
-                      controller:
-                          Get.find<LoginController>().phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            // width: 2.0,
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                            color: Colors.black,
-                            // width: 2.0,
-                          ),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                            color: Colors.red,
-                            // width: 2.0,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: const BorderSide(
-                            color: Colors.grey,
-                            // width: 2.0,
-                          ),
-                        ),
-                        labelText: 'Phone',
-                        labelStyle: kTextStyleButtons.copyWith(
-                          fontSize: 13,
-                          color: Colors.black.withOpacity(0.3),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    // TextFormField(
-                    //   onSaved: (newValue) {
-                    //     Get.find<LoginController>().loginPassword = newValue!;
-                    //   },
-                    //   validator: (value) {
-                    //     return Get.find<LoginController>()
-                    //         .passwordValidate(value!);
-                    //   },
-                    //   controller:
-                    //       Get.find<LoginController>().loginPasswordController,
-                    //   keyboardType: TextInputType.emailAddress,
-                    //   decoration: InputDecoration(
-                    //     contentPadding: const EdgeInsets.symmetric(
-                    //         vertical: 10.0, horizontal: 10.0),
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: const BorderSide(
-                    //         color: Colors.black,
-                    //         // width: 2.0,
-                    //       ),
-                    //     ),
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: const BorderSide(
-                    //         color: Colors.black,
-                    //         // width: 2.0,
-                    //       ),
-                    //     ),
-                    //     errorBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: const BorderSide(
-                    //         color: Colors.red,
-                    //         // width: 2.0,
-                    //       ),
-                    //     ),
-                    //     enabledBorder: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //       borderSide: const BorderSide(
-                    //         color: Colors.grey,
-                    //         // width: 2.0,
-                    //       ),
-                    //     ),
-                    //     labelText: 'Password',
-                    //     labelStyle: kTextStyleButtons.copyWith(
-                    //       fontSize: 13,
-                    //       color: Colors.black.withOpacity(0.3),
-                    //     ),
-                    //   ),
-                    // ),
-                    TextButton(
-                      onPressed: () {
-                        FocusScope.of(context).unfocus();
-                        Get.find<LoginController>().sendOtp();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
+              Column(
+                children: [
+                  Text(
+                    'Phone Verification !',
+                    style: kTextStyleButtons.copyWith(
+                        fontSize: 20, color: Colors.blueAccent),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextFormField(
+                    onSaved: (newValue) {
+                      // Get.find<LoginController>().loginEmail = newValue!;
+                      Get.find<LoginController>().phoneNumber.value = newValue!;
+                    },
+                    validator: (value) {
+                      return Get.find<LoginController>()
+                          .phoneNumberValidate(value!);
+                    },
+                    controller:
+                        Get.find<LoginController>().phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 10.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
                           color: Colors.black,
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 8),
-                        child: Text(
-                          'Send OTP',
-                          style: kTextStyleButtons.copyWith(
-                              color: Colors.white, fontSize: 14),
+                          // width: 2.0,
                         ),
                       ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          // width: 2.0,
+                        ),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
+                          color: Colors.red,
+                          // width: 2.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                        borderSide: const BorderSide(
+                          color: Colors.grey,
+                          // width: 2.0,
+                        ),
+                      ),
+                      labelText: 'Phone',
+                      labelStyle: kTextStyleButtons.copyWith(
+                        fontSize: 13,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
                     ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  // TextFormField(
+                  //   onSaved: (newValue) {
+                  //     Get.find<LoginController>().loginPassword = newValue!;
+                  //   },
+                  //   validator: (value) {
+                  //     return Get.find<LoginController>()
+                  //         .passwordValidate(value!);
+                  //   },
+                  //   controller:
+                  //       Get.find<LoginController>().loginPasswordController,
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   decoration: InputDecoration(
+                  //     contentPadding: const EdgeInsets.symmetric(
+                  //         vertical: 10.0, horizontal: 10.0),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(25.0),
+                  //       borderSide: const BorderSide(
+                  //         color: Colors.black,
+                  //         // width: 2.0,
+                  //       ),
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(25.0),
+                  //       borderSide: const BorderSide(
+                  //         color: Colors.black,
+                  //         // width: 2.0,
+                  //       ),
+                  //     ),
+                  //     errorBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(25.0),
+                  //       borderSide: const BorderSide(
+                  //         color: Colors.red,
+                  //         // width: 2.0,
+                  //       ),
+                  //     ),
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(25.0),
+                  //       borderSide: const BorderSide(
+                  //         color: Colors.grey,
+                  //         // width: 2.0,
+                  //       ),
+                  //     ),
+                  //     labelText: 'Password',
+                  //     labelStyle: kTextStyleButtons.copyWith(
+                  //       fontSize: 13,
+                  //       color: Colors.black.withOpacity(0.3),
+                  //     ),
+                  //   ),
+                  // ),
+                  TextButton(
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      Get.find<LoginController>().sendOtp();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40, vertical: 8),
+                      child: Text(
+                        'Send OTP',
+                        style: kTextStyleButtons.copyWith(
+                            color: Colors.white, fontSize: 14),
+                      ),
+                    ),
+                  ),
+                ],
               ),
 
               //Registration

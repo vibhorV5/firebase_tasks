@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registrationFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> phoneFormKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> phoneFormKey = GlobalKey<FormState>();
   // final GlobalKey<FormState> otpFormKey = GlobalKey<FormState>();
 
   // bool loginStatus = false;
@@ -85,20 +85,20 @@ class LoginController extends GetxController {
   }
 
   void sendOtp() async {
-    if (phoneFormKey.currentState!.validate()) {
-      await AuthService().sendFirebaseOtp(mobile: phoneNumberController.text);
-      debugPrint('OTP Sent Successfully');
-      // Get.find<LoginController>().phoneNumberController.clear();
-    }
+    await AuthService().sendFirebaseOtp(mobile: phoneNumberController.text);
+    debugPrint('OTP Sent Successfully');
+    // Get.find<LoginController>().phoneNumberController.clear();
   }
 
   void verifyOtp() async {
     if (otpController.text.isNotEmpty) {
       await AuthService()
           .verifyFirebaseOtp(phoneNumberController.text, otpController.text);
+      Get.find<LoginController>().phoneNumberController.clear();
     } else {
       Get.snackbar('Required *', 'Please enter otp',
           snackPosition: SnackPosition.BOTTOM);
+      Get.find<LoginController>().phoneNumberController.clear();
     }
   }
 

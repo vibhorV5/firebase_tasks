@@ -181,12 +181,12 @@ class AuthService {
     try {
       await _auth.signOut();
 
-      // Navigator.pushAndRemoveUntil(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => AuthGate()),
-      //     (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => AuthGate()),
+          (route) => false);
       // Get.to(const LogInScreen());
-      // debugPrint(currentUser!.uid);
+      debugPrint(currentUser!.uid);
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
     }

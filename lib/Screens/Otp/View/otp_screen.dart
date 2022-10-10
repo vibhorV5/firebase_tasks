@@ -17,6 +17,7 @@ class _OtpScreenState extends State<OtpScreen> {
     super.dispose();
     Get.find<LoginController>().otpCode.value = '';
     Get.find<LoginController>().phoneNumber.value = '';
+    Get.find<LoginController>().otpController.clear();
   }
 
   @override
