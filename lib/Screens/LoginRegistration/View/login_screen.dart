@@ -52,6 +52,7 @@ class _LogInScreenState extends State<LogInScreen> {
               TextButton(
                 onPressed: () async {
                   await AuthService().signInAnonymously();
+
                   debugPrint('Successfully logged in anonymously');
                 },
                 child: Container(

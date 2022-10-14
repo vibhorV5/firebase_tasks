@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_tasks/Constant/TextStyles/text_styles.dart';
 import 'package:firebase_tasks/Services/Firebase/Auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () async {
                   // Navigator.of(context).pop();
                   await AuthService().signOut(context);
+
+                  //crash
+                  // FirebaseCrashlytics.instance.crash();
                   debugPrint('Successfully logged out');
                   // Get.toNamed(home);
                 },

@@ -3,6 +3,7 @@ import 'package:firebase_tasks/Screens/AuthGate/View/auth_gate.dart';
 import 'package:firebase_tasks/Screens/Home/View/home_screen.dart';
 import 'package:firebase_tasks/Screens/LoginRegistration/Controller/login_controller.dart';
 import 'package:firebase_tasks/Screens/Otp/View/otp_screen.dart';
+import 'package:firebase_tasks/Services/Firebase/Analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +12,7 @@ class AuthService {
   final _auth = FirebaseAuth.instance;
   final currentUser = FirebaseAuth.instance.currentUser;
   final userStream = FirebaseAuth.instance.authStateChanges();
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   //Send OTP/Verify OTP
   Future sendFirebaseOtp({
@@ -122,7 +124,8 @@ class AuthService {
     try {
       UserCredential userCredential = await _auth.signInAnonymously();
       User? user = userCredential.user;
-      debugPrint('User Id = ${user!.uid}');
+      await _analyticsService.setUserId(user!.uid);
+      debugPrint('User Id = ${user.uid}');
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
       return null;
