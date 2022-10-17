@@ -1,7 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_tasks/Screens/Home/View/home_screen.dart';
 import 'package:firebase_tasks/Screens/LoginRegistration/View/login_screen.dart';
 import 'package:firebase_tasks/Services/Firebase/Auth/firebase_auth.dart';
+import 'package:firebase_tasks/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class AuthGate extends StatefulWidget {
   const AuthGate({Key? key}) : super(key: key);
