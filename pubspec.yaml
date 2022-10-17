@@ -44,6 +44,7 @@ dependencies:
   firebase_messaging: ^13.1.0
   cloud_firestore: ^3.5.1
   flutter_local_notifications: ^12.0.2
+  firebase_remote_config: ^2.0.20
 
 
 dev_dependencies:
