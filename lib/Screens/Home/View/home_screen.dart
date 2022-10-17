@@ -1,7 +1,10 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_tasks/Constant/TextStyles/text_styles.dart';
+import 'package:firebase_tasks/Screens/AddPage/add_page.dart';
+import 'package:firebase_tasks/Screens/ListPage/list_page.dart';
 import 'package:firebase_tasks/Services/Firebase/Auth/firebase_auth.dart';
+import 'package:firebase_tasks/Services/Firebase/Database/database_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +23,33 @@ class _HomeScreenState extends State<HomeScreen> {
         leading: Container(),
         title: const Text('Home Screen'),
         centerTitle: true,
+        actions: [
+          TextButton(
+            onPressed: () async {
+              // Navigator.of(context).pop();
+              await AuthService().signOut(context);
+
+              //crash
+              // FirebaseCrashlytics.instance.crash();
+              debugPrint('Successfully logged out');
+              // Get.toNamed(home);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  width: 1,
+                  color: Colors.deepOrange,
+                ),
+              ),
+              child: const Text(
+                'Log Out',
+                style: kTextStyleButtons,
+              ),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -28,32 +58,54 @@ class _HomeScreenState extends State<HomeScreen> {
           // color: Colors.black12,
           child: Column(
             children: [
-              TextButton(
-                onPressed: () async {
-                  // Navigator.of(context).pop();
-                  await AuthService().signOut(context);
-
-                  //crash
-                  // FirebaseCrashlytics.instance.crash();
-                  debugPrint('Successfully logged out');
-                  // Get.toNamed(home);
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 100, vertical: 13),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.deepOrange,
+              Container(
+                height: mediaQuery.height,
+                width: double.infinity,
+                color: Colors.grey.shade200,
+                child: Column(
+                  children: [
+                    TextButton(
+                      onPressed: () async {
+                        await DatabaseServices().setPersonalDetails();
+                        Get.snackbar(
+                          'Success',
+                          'Personal Details Set',
+                          backgroundColor: Colors.green.withOpacity(0.5),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)),
+                        child: Text('Save Personal Information'),
+                      ),
                     ),
-                  ),
-                  child: const Text(
-                    'Log Out',
-                    style: kTextStyleButtons,
-                  ),
+                    TextButton(
+                      onPressed: () async {
+                        Get.to(const AddPage());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)),
+                        child: Text('Add Employee Info'),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        Get.to(const ListPage());
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black)),
+                        child: Text('List Employees Page'),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              )
             ],
           ),
         ),
